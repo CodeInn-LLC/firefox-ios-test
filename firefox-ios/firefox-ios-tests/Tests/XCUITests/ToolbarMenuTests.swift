@@ -17,15 +17,10 @@ class ToolbarMenuTests: BaseTestCase {
         let hamburgerMenu = app.buttons[AccessibilityIdentifiers.Toolbar.settingsMenuButton]
         let tabsButton = app.buttons[AccessibilityIdentifiers.Toolbar.tabsButton]
         let firstPocketCell = app.collectionViews.cells["PocketCell"].firstMatch
-        let bookmarksButton = app.buttons[AccessibilityIdentifiers.Toolbar.bookmarksButton]
         mozWaitForElementToExist(hamburgerMenu)
         mozWaitForElementToExist(firstPocketCell)
         if iPad() {
-            mozWaitForElementToExist(bookmarksButton)
-            XCTAssertTrue(
-                hamburgerMenu.isRightOf(rightElement: bookmarksButton),
-                "Menu button is not on the right side of bookmarks button"
-            )
+            mozWaitForElementToExist(firstPocketCell)
             XCTAssertTrue(
                 hamburgerMenu.isAbove(element: firstPocketCell),
                 "Menu button is not above the pocket cells area"
@@ -48,19 +43,11 @@ class ToolbarMenuTests: BaseTestCase {
         mozWaitForElementToExist(hamburgerMenu)
         mozWaitForElementToNotExist(app.tables["Context Menu"])
         mozWaitForElementToExist(app.textFields[AccessibilityIdentifiers.Browser.UrlBar.url])
-        if iPad() {
-            mozWaitForElementToExist(bookmarksButton)
-            XCTAssertTrue(
-                hamburgerMenu.isRightOf(rightElement: bookmarksButton),
-                "Menu button is not on the right side of bookmarks button"
-            )
-        } else {
-            mozWaitForElementToExist(tabsButton)
-            XCTAssertTrue(
-                hamburgerMenu.isRightOf(rightElement: tabsButton),
-                "Menu button is not on the right side of tabs button"
-            )
-        }
+        mozWaitForElementToExist(tabsButton)
+        XCTAssertTrue(
+            hamburgerMenu.isRightOf(rightElement: tabsButton),
+            "Menu button is not on the right side of tabs button"
+        )
         mozWaitForElementToExist(firstPocketCell)
         XCTAssertTrue(
             hamburgerMenu.isAbove(element: firstPocketCell),
